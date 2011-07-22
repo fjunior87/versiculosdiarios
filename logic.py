@@ -27,7 +27,9 @@ class BibliaOnlineStrategy(YqlStrategy):
 		verse.put()
 		
 		return verse
-	
+
+		
+
 	
 		
 		
