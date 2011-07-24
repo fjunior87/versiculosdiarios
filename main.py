@@ -24,7 +24,7 @@ class MainHandler(webapp.RequestHandler):
 		result = get_yql_result(old_xpath)
 	
 		self.response.out.write("Here")
-		verseHandler = logic.BibliaOnlineStrategy(result)
+		verseHandler = logic.YqlProcessor(result, logic.process_strategy[logic.BIBLIA_ONLINE])
 		vars = verseHandler.process_results()
 		
 		self.response.out.write(vars.book)
