@@ -13,7 +13,7 @@ class BibliaOnlineStrategy(YqlStrategy):
 	def process_results(self):
 		content = self.result.rows['content']
 		book = self.result.rows['a']['content']
-		book = book.replace("\n","")
+		book = book.replace("\n"," ")
 		source_link = self.result.rows['a']['href']
 		title = book
 		user = users.get_current_user()

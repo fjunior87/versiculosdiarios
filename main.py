@@ -21,15 +21,29 @@ def getRss():
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
-		y = yql.Public()
-		query = 'select * from html where url="http://www.bibliaonline.com.br/" and xpath="/html/body/p[@class=\'ot verse\']"'
-		result = y.execute(query)
+		result = get_yql_result(old_xpath)
+	
 		self.response.out.write("Here")
 		verseHandler = logic.BibliaOnlineStrategy(result)
 		vars = verseHandler.process_results()
+		
 		self.response.out.write(vars.book)
 		self.response.out.write(result.rows)
+		
+		result = get_yql_result(new_xpath)
+		verseHandler.result = result
+		vars = verseHandler.process_results()
+		
+		self.response.out.write(vars.book)
+		self.response.out.write(result.rows)
+		
+		
 
+
+def get_yql_result(query):
+	y = yql.Public()
+	result = y.execute(query)
+	return result
 		
 class VerseHandler(webapp.RequestHandler):
 	def get(self):
