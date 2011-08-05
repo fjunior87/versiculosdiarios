@@ -47,7 +47,10 @@ def get_yql_result(query):
 		
 class VerseHandler(webapp.RequestHandler):
 	def get(self):
-		self.response.out.write(template.render("templates/add_verse.html",{}))
+		if self.request.path == '/':
+			self.response.out.write(template.render("templates/verses_index.html",{}))
+		else:
+			self.response.out.write(template.render("templates/add_verse.html",{}))
 		
 	def post(self):
 		payload = dict(self.request.POST)
@@ -75,8 +78,9 @@ class VerseHandler(webapp.RequestHandler):
 		
 if __name__ == "__main__":
 	application = webapp.WSGIApplication([
-		('/', MainHandler),
+		('/cron', MainHandler),
 		('/verse', VerseHandler),
 		('/addVerse', VerseHandler),
+		('/',VerseHandler),
 		], debug=True)
 	wsgiref.handlers.CGIHandler().run(application)
