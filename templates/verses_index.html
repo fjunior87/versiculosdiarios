@@ -14,8 +14,11 @@
 			<div id="verses">
 			
 				{% for verse in verses %}
-				
+				{% if forloop.last %}
+				<div class="verse last">
+				{% else %}
 				<div class="verse">
+				{% endif %}
 					<span class="verse_title">{{verse.title}}</span>
 					<p class="verse_content">
 						<blockquote>{{verse.content}}</blockquote>
@@ -25,22 +28,6 @@
 				</div>
 				
 				{%endfor%}
-				<div class="verse">
-					<span class="verse_title">TItulo do versiculo</span>
-					<p class="verse_content">
-						<blockquote>Tudo Posso Naquele que me fortalece</blockquote>
-						<br/><span class="book">Livro 12:12 | <a href="#">Biblia On-line</a></span>
-					</p>
-					
-				</div>
-				<div class="verse last">
-					<span class="verse_title">TItulo do versiculo</span>
-					<p class="verse_content">
-						<blockquote>Tudo Posso Naquele que me fortalece</blockquote>
-						<br><span class="book">Livro 12:12 | <a href="#">Biblia On-line</a></span>
-					</p>
-					
-				</div>
 			</div>
 		</div>
 		<div id="footer">
