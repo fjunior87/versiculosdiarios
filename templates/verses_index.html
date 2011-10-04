@@ -13,6 +13,18 @@
 		<div id="page">
 			<div id="verses">
 			
+				{% for verse in verses %}
+				
+				<div class="verse">
+					<span class="verse_title">{{verse.title}}</span>
+					<p class="verse_content">
+						<blockquote>{{verse.content}}</blockquote>
+						<br/><span class="book">{{verse.book}} | <a href="{{verse.sourceLink}}">{{verse.source}}</a></span>
+					</p>
+					
+				</div>
+				
+				{%endfor%}
 				<div class="verse">
 					<span class="verse_title">TItulo do versiculo</span>
 					<p class="verse_content">

@@ -9,6 +9,7 @@ from google.appengine.ext import webapp
 from google.appengine.api import users
 from google.appengine.api import urlfetch
 from google.appengine.ext.webapp import template
+from google.appengine.ext import db
 
 old_xpath = 'select * from html where url="http://www.bibliaonline.com.br/" and xpath="/html/body/p[@class=\'ot verse\']"'
 new_xpath = 'select * from html where url="http://www.bibliaonline.com.br/" and xpath="/html/body/p[@class=\'nt verse\']"'
@@ -48,7 +49,8 @@ def get_yql_result(query):
 class VerseHandler(webapp.RequestHandler):
 	def get(self):
 		if self.request.path == '/':
-			self.response.out.write(template.render("templates/verses_index.html",{}))
+			verses = db.GqlQuery('SELECT * FROM  Verse ORDER by created DESC')
+			self.response.out.write(template.render("templates/verses_index.html",{"verses":verses}))
 		else:
 			self.response.out.write(template.render("templates/add_verse.html",{}))
 		
