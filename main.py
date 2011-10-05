@@ -11,8 +11,8 @@ from google.appengine.api import urlfetch
 from google.appengine.ext.webapp import template
 from google.appengine.ext import db
 
-old_xpath = 'select * from html where url="http://www.bibliaonline.com.br/" and xpath="/html/body/p[@class=\'ot verse\']"'
-new_xpath = 'select * from html where url="http://www.bibliaonline.com.br/" and xpath="/html/body/p[@class=\'nt verse\']"'
+old_xpath = 'select * from html where url="http://www.bibliaonline.com.br/" and xpath="//p[@class=\'ot verse\']"'
+new_xpath = 'select * from html where url="http://www.bibliaonline.com.br/" and xpath="//p[@class=\'nt verse\']"'
 def getRss():
 	y = yql.Public()
 	query = 'select * from html where url="http://www.bibliaonline.com.br/" and xpath="/html/body/p[@class=\'ot verse\']"'
@@ -23,20 +23,15 @@ def getRss():
 class MainHandler(webapp.RequestHandler):
 	def get(self):
 		result = get_yql_result(old_xpath)
-	
-		self.response.out.write("Here")
+		
 		verseHandler = logic.YqlProcessor(result, logic.process_strategy[logic.BIBLIA_ONLINE])
 		vars = verseHandler.process_results()
-		
-		self.response.out.write(vars.book)
-		self.response.out.write(result.rows)
 		
 		result = get_yql_result(new_xpath)
 		verseHandler.result = result
 		vars = verseHandler.process_results()
 		
-		self.response.out.write(vars.book)
-		self.response.out.write(result.rows)
+		self.response.out.write("Verses Added")
 		
 		
 

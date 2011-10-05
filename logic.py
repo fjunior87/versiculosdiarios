@@ -18,23 +18,24 @@ class YqlProcessor():
 	
 def process_results_biblia_online(result):
 	source = 'Biblia on-line'
-	content = result.rows['content']
-	book = result.rows['a']['content']
-	book = book.replace("\n"," ")
-	source_link = result.rows['a']['href']
-	title = book
-	user = users.get_current_user()
-	verse = models.Verse(
-		content = content,
-		book = book,
-		source_link = source_link,
-		title = title,
-		user = user,
-		source = source
-	)
-	verse.put()
-	
-	return verse
+	if result.rows:
+		content = result.rows['content']
+		book = result.rows['a']['content']
+		book = book.replace("\n"," ")
+		source_link = result.rows['a']['href']
+		title = book
+		user = users.get_current_user()
+		verse = models.Verse(
+			content = content,
+			book = book,
+			sourceLink = source_link,
+			title = title,
+			user = user,
+			source = source
+		)
+		verse.put()
+		
+		return verse
 
 def process_results_fonte_a_jorrar(result):
 	pass
