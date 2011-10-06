@@ -1,0 +1,4 @@
+cron:
+- description: daily verses query
+  url: /cron
+  schedule: every 24 hours
