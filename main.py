@@ -22,16 +22,18 @@ def getRss():
 
 class MainHandler(webapp.RequestHandler):
 	def get(self):
-		result = get_yql_result(old_xpath)
-		
-		verseHandler = logic.YqlProcessor(result, logic.process_strategy[logic.BIBLIA_ONLINE])
-		vars = verseHandler.process_results()
-		
-		result = get_yql_result(new_xpath)
-		verseHandler.result = result
-		vars = verseHandler.process_results()
-		
-		self.response.out.write("Verses Added")
+		if self.request.headers.get("X-AppEngine-Cron","") == "true":
+	
+			result = get_yql_result(old_xpath)
+			
+			verseHandler = logic.YqlProcessor(result, logic.process_strategy[logic.BIBLIA_ONLINE])
+			vars = verseHandler.process_results()
+			
+			result = get_yql_result(new_xpath)
+			verseHandler.result = result
+			vars = verseHandler.process_results()
+			
+			self.response.out.write("Verses Added")
 		
 		
 
