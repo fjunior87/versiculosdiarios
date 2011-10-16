@@ -27,20 +27,32 @@ class MainHandler(webapp.RequestHandler):
 			result = get_yql_result(old_xpath)
 			
 			verseHandler = logic.YqlProcessor(result, logic.process_strategy[logic.BIBLIA_ONLINE])
-			vars = verseHandler.process_results()
+			verseHandler.process_results()
 			
 			result = get_yql_result(new_xpath)
+			
 			verseHandler.result = result
-			vars = verseHandler.process_results()
+			verseHandler.process_results()
+			
+			logic.YqlProcessor(get_arca_universal_result(), logic.process_strategy[logic.ARCA_UNIVERSAL]).process_results()
 			
 			self.response.out.write("Verses Added")
-		
-		
 
 
 def get_yql_result(query):
 	y = yql.Public()
 	result = y.execute(query)
+	return result
+	
+def get_arca_universal_result():
+	form_fields = {
+		"idp": "131",
+	}
+	form_data = urllib.urlencode(form_fields)
+	result = urlfetch.fetch(url="http://www.arcauniversal.com/servicos/pg_caixa_promessa_random.html",
+							payload=form_data,
+							method=urlfetch.POST,
+							headers={'Content-Type': 'application/x-www-form-urlencoded'})
 	return result
 		
 class VerseHandler(webapp.RequestHandler):
