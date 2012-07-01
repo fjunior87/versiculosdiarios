@@ -5,7 +5,7 @@
 		<meta name="ROBOTS" content="ALL" />
 	    <meta name="keywords" content="Biblia, versiculos, versiculos diarios" />
 	    <meta name="description" content="Todos os dias levando a palavra de Deus até você" />
-
+		<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 	</head>
 	
 	<body>
@@ -25,7 +25,13 @@
 					<span class="verse_title">{{verse.title}}</span>
 					<p class="verse_content">
 						<blockquote>{{verse.content}}</blockquote>
-						<br/><span class="book">{{verse.book}} | <a href="{{verse.sourceLink}}">{{verse.source}}</a></span>
+						<br/>
+					   <a href="https://twitter.com/share" class="twitter-share-button"
+					      data-url="{{verse.sourceLink}}"
+					      data-count="none"
+						  data-text="{{verse.content}}"
+						  >Tweet</a>
+						<span class="book">{{verse.book}} | <a href="{{verse.sourceLink}}">{{verse.source}}</a></span>
 					</p>
 					
 				</div>
